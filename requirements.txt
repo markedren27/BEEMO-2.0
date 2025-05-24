@@ -1,0 +1,70 @@
+# Core Django Framework
+Django>=4.2.9
+djangorestframework>=3.14.0
+python-dotenv>=1.0.0
+
+# Machine Learning and Data Processing
+numpy>=1.26.0
+tensorflow>=2.16.1
+scikit-learn>=1.3.2
+scipy>=1.11.0
+pandas>=2.1.0
+pillow>=10.0.0  # For image processing
+
+# Audio Processing
+librosa>=0.10.1
+sounddevice>=0.4.6
+soundfile>=0.12.1
+pydub>=0.25.1
+wave>=0.0.2
+pyaudio>=0.2.14  # For additional audio device support
+
+# Visualization
+matplotlib>=3.8.0
+seaborn>=0.12.0
+
+# Web and API Dependencies
+google-api-python-client>=2.97.0
+google-auth-httplib2>=0.1.1
+google-auth-oauthlib>=1.1.0
+requests>=2.31.0
+
+# Development and Testing
+pytest>=7.4.0
+coverage>=7.2.0
+black>=23.3.0
+flake8>=6.0.0
+
+# Deployment and Performance
+gunicorn>=20.1.0
+whitenoise>=6.4.0
+redis>=4.5.0
+celery>=5.2.0
+uvicorn>=0.23.0  # ASGI server support
+
+# Additional ML and Audio Tools
+torch>=2.1.0
+torchaudio>=2.1.0
+transformers>=4.35.0
+
+# Discord Integration
+discord.py>=2.3.0
+aiohttp>=3.9.0  # For async Discord operations
+
+# Blynk Integration
+blynk-library-python==0.2.0
+
+# Scheduling and System Utilities
+systemd-python>=235  # For systemd timer integration (optional)
+
+# Logging and Monitoring
+python-json-logger>=2.0.0
+
+# Asynchronous Programming
+asyncio>=3.4.3
+
+# Google Sheets Integration
+google-auth>=2.22.0
+google-auth-oauthlib>=1.0.0
+google-auth-httplib2>=0.1.0
+google-api-python-client>=2.97.0

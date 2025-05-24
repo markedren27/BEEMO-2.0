@@ -1,0 +1,77 @@
+var SS = SpreadsheetApp.openById('1cYdJB67OZK1zEJJih0cb36dWmYM5AB5wEEyZ7y-yMJ8');
+
+// Sheet references
+var sheet1 = SS.getSheetByName('DHT-1');
+var sheet2 = SS.getSheetByName('DHT-2');
+
+// Add menu and headers
+function onOpen() {
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('Logger')
+    .addItem('Clear Device1', 'clearDevice1')
+    .addItem('Clear Device2', 'clearDevice2')
+    .addToUi();
+
+  setupHeaders(sheet1);
+  setupHeaders(sheet2);
+}
+
+// Set headers in a sheet
+function setupHeaders(sheet) {
+  if (sheet.getRange('A2').getValue() === "") {
+    sheet.getRange('A2').setValue('Date');
+    sheet.getRange('B2').setValue('Time');
+    sheet.getRange('C2').setValue('Temperature');
+    sheet.getRange('D2').setValue('Humidity');
+  }
+}
+
+// Clear logs
+function clearDevice1() {
+  if (sheet1.getLastRow() > 3) {
+    sheet1.deleteRows(4, sheet1.getLastRow() - 3);
+  }
+}
+
+function clearDevice2() {
+  if (sheet2.getLastRow() > 3) {
+    sheet2.deleteRows(4, sheet2.getLastRow() - 3);
+  }
+}
+
+// Handle POST request
+function doPost(e) {
+  try {
+    var parsedData = JSON.parse(e.postData.contents);
+
+    Logger.log("Raw postData: " + e.postData.contents);
+    Logger.log("Parsed data: " + JSON.stringify(parsedData));
+
+    if (!parsedData || !parsedData.deviceId || !parsedData.values || parsedData.values.length < 4) {
+      return ContentService.createTextOutput("Error: Missing or incomplete data.");
+    }
+
+    var values = parsedData.values;
+    var temperature = parseFloat(values[2]);
+    var humidity = parseFloat(values[3]);
+
+    var now = new Date();
+    var phDate = Utilities.formatDate(now, "Asia/Manila", "yyyy-MM-dd");
+    var phTime = Utilities.formatDate(now, "Asia/Manila", "HH:mm:ss");
+
+    var rowData = [phDate, phTime, temperature, humidity];
+
+    if (parsedData.deviceId === "ESP32_1") {
+      sheet1.appendRow(rowData);
+      return ContentService.createTextOutput("Logged: Device 1");
+    } else if (parsedData.deviceId === "ESP32_2") {
+      sheet2.appendRow(rowData);
+      return ContentService.createTextOutput("Logged: Device 2");
+    } else {
+      return ContentService.createTextOutput("Unknown deviceId: " + parsedData.deviceId);
+    }
+
+  } catch (error) {
+    return ContentService.createTextOutput("Error: " + error.message);
+  }
+}
