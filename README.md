@@ -1,8 +1,11 @@
 # BEEMO 2.0 CODES
 This repository contains the codes used for the project and includes the following:
 1. Web Application
-2. Predictors
+   - Predictors
+   - Audio Analysis
 3. Sensor System
+   - Camera
+   - Temperature and Humidity Sensor
 
 # Project Overview
 BeemoDos is a Django-based web application designed to analyze bee audio recordings, generate spectrograms, and provide insights into bee behavior using machine learning.
@@ -37,3 +40,6 @@ for installation dependencies, refer to "requirements.txt"
 
 Type:
 *pip install -r requirements.txt*
+
+# Server Run
+refer to "manage.py"
